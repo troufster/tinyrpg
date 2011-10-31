@@ -1,4 +1,4 @@
-var Base = require('./base');
+var Base = require('../lib/base');
 var Combat = require('./combat');
 
 function Entity(params) {  

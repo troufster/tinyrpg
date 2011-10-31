@@ -1,7 +1,7 @@
- var Dice = require('./lib/dice');
- var Character = require('./lib/entity').Character;
- var Item = require('./lib/entity').Item;
- var AI = require('./assets/ai');
+ var Dice = require('./src/dice');
+ var Character = require('./src/entity').Character;
+ var Item = require('./src/entity').Item;
+ var AI = require('./src/ai');
  var FSM = require('./lib/fsm');
  
  
@@ -30,14 +30,14 @@
 
 // monster1.Attack(player);
  
-// player.Attack(monster);
+player.Attack(monster1);
  /*
  
  monster2.Attack(player);
  monster3.Attack(player);
  */
 
- /*
+ 
  setInterval(function() {
    
    player.AI.runCurrent(player);
@@ -46,5 +46,5 @@
    monster3.AI.runCurrent(monster3);
    
  }, 400);
- */
+ 
  

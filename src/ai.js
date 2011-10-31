@@ -1,4 +1,4 @@
-var Dice = require('../lib/dice');
+var Dice = require('../src/dice');
 
 var AI = {
   Attack: function(agent) {
