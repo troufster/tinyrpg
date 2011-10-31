@@ -2,6 +2,11 @@ var Base = require('../lib/base');
 var Combat = require('./combat');
 var Messages = require('./messages');
 
+function GameObject(params) {
+  
+}
+
+
 function Entity(params) {  
   this.Name = params.Name;
   this.STR = params.STR || 0;
