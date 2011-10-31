@@ -1,5 +1,6 @@
 var Base = require('../lib/base');
 var Combat = require('./combat');
+var Messages = require('./messages');
 
 function Entity(params) {  
   this.Name = params.Name;
@@ -67,7 +68,7 @@ Character.prototype.StatMod = function(stat) {
 
 Character.prototype.Equip = function(item) {
   this.Equipment[item.Type] = item;
-  console.log(this.Name + ' equips ' + item.Name);
+  Messages.Character.Equip({ actor : this.Name, item : item.Name});
   
   this.Update();  
 }
@@ -81,8 +82,6 @@ Character.prototype.SetTarget = function(target) {
 Character.prototype.Attack = function(target) {    
     
     this.SetTarget(target);
-    
-    console.log(this.Name + ' Attacking ' + this.Target.Name);
     
     this.AI.setState('Attack');
     
@@ -101,8 +100,6 @@ Character.prototype.Hit = function() {
 }
 
 Character.prototype.Defend = function(target) {
-  
-  console.log(this.Name + ' Defending');
   this.SetTarget(target);
   this.AI.setState('Attack');
 }

@@ -3,6 +3,7 @@
  var Item = require('./src/entity').Item;
  var AI = require('./src/ai');
  var FSM = require('./lib/fsm');
+ var Dispatcher = require('./lib/dispatcher');
  
  
  var monster1 = new Character({ STR: 1, DEX: 1, MIND: 1, Name : 'Monster1'}); 
@@ -19,6 +20,14 @@
  monster3.AI = new FSM(AI.Generic, 'Idle');
  player.AI = new FSM(AI.Generic, 'Idle');
  
+ 
+ Dispatcher.Emitter.on('combat', function(ev){
+   console.log(ev.Message);
+ });
+ 
+ Dispatcher.Emitter.on('character', function(ev){
+   console.log(ev.Message);
+ });
  
  player.Level = 10;
  player.Equip(Sword);

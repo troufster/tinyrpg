@@ -1,4 +1,5 @@
 var Dice = require('../src/dice');
+var Messages = require('./messages');
 
 var AI = {
   Attack: function(agent) {
@@ -10,7 +11,7 @@ var AI = {
   Idle: function(agent) {
     var val = Dice.DX(100);       
       if(val < 5) {
-        console.log(agent.Name + ' scans the area looking for a kill');
+        Messages.Idle.Random({ actor : agent.Name});
       }
   },
   None : function() {},

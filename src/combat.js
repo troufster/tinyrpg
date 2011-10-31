@@ -1,4 +1,5 @@
 var Dice = require('./dice'); 
+var Messages = require('./messages');
 
 function Combat(attacker, defender) {
       
@@ -6,7 +7,7 @@ function Combat(attacker, defender) {
   var hit = (attacker.STR + Dice.D12() + attacker.HRoll) - defender.AC;
        
    if(hit <= 0) {
-     console.log(attacker.Name + ' Misses ' + defender.Name)
+     Messages.Combat.Miss({ attacker : attacker.Name , defender :defender.Name})
    } else {
      
      //Dmg calc     
@@ -22,12 +23,10 @@ function Combat(attacker, defender) {
                       
      //Death
      if(defender.HP <= 0) {
-       
-       console.log(attacker.Name + ' deals ' + dmg + ' damage, killing ' + defender.Name );
-       
+       Messages.Combat.Death({ attacker : attacker.Name, defender : defender.Name, dmg : dmg});
        defender.Death(attacker);
      } else {
-       console.log(attacker.Name + ' Hits ' + defender.Name + ' for ' + dmg + ' [' + Math.floor(defender.HP/defender.MaxHP() * 100) + '%]');
+       Messages.Combat.Hit({ attacker : attacker.Name, defender : defender.Name, dmg : dmg});
      }
    }
    
