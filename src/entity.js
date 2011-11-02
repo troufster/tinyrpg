@@ -1,30 +1,37 @@
 var Base = require('../lib/base');
 var Combat = require('./combat');
 var Messages = require('./messages');
+var Vector = require('../lib/vector');
+var sys = require('sys');
+
 
 function GameObject(params) {
-  
+  this.pos = params.pos;
+  this.id = params.id;
 }
 
-
 function Entity(params) {  
+  GameObject.call(this,params);
+  
+  this.Room = null;
   this.Name = params.Name;
   this.STR = params.STR || 0;
   this.DEX = params.DEX || 0;
   this.MIND = params.MIND || 0;
-  this.Level = 1;
-  this.children = [];
-  this.parent = null;  
+  this.Level = 1;    
   this.HRoll = params.HRoll || 0;
-  this.DRoll = params.DRoll || 0;
+  this.DRoll = params.DRoll || 0;  
 }
 
-function Character(params) {
-  this.__super.call(this, params);
-  
+
+sys.inherits(Entity, GameObject);
+
+function Character(params) {  
+  Entity.call(this, params);
   this.Target = null;
   this.Race = params.race;
   this.AI = null;
+  this.Client = params.Client;
   
   this.Equipment = {
       'Head' : null,
@@ -35,6 +42,8 @@ function Character(params) {
   
   this.Reset();  
 }
+
+sys.inherits(Character, Entity);
 
 Character.prototype.Reset = function() {
   this.HP = this.MaxHP();
@@ -115,14 +124,54 @@ Character.prototype.Death = function(killer) {
 }
 
 
-Base.extend(Character, Entity);
-
-function Item(params){
-  this.Type = params.Type;
-  this.__super.call(this, params);  
+Character.prototype.Json = function() {    
+  var char = { Equipment : {}};
+  var nosend = ['AC', 'AI', 'DEX', 'MIND', 'DRoll', 'HRoll', 'STR'];
+  
+  for(var prop in this) {
+    var type = typeof this[prop];
+    
+    if(nosend.indexOf(prop) > -1) continue;
+    
+    if(type === 'function') continue;
+    
+    if(type === 'object') {
+      if(prop == 'Client') continue;
+      
+      if(prop == 'Target') {
+        char[prop] = this[prop] == null ? null : this[prop].Json();
+      }
+    } 
+      
+      char[prop] = this[prop];   
+    
+  }
+        return char;
 }
 
-Base.extend(Item, Entity);
+Character.Player = function(client, cid) {
+  //Todo : fetch character by character id
+  var c = new Character({ STR: 10, DEX: 1, MIND: 1, Name : 'Player', Client : client, pos : new Vector(0,0), id : client.id });
+  
+  c.Reset();
+  
+  return c;
+}
+
+
+
+
+//Base.extend(Character, Entity);
+
+
+
+function Item(params){
+  Entity.call(this, params);
+  this.Type = params.Type;   
+}
+
+//Base.extend(Item, Entity);
+sys.inherits(Item, Entity);
 
 
 exports.Entity = Entity;
