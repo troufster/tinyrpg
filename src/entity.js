@@ -18,6 +18,7 @@ function Entity(params) {
   this.STR = params.STR || 0;
   this.DEX = params.DEX || 0;
   this.MIND = params.MIND || 0;
+  this.AC = params.AC || 0;
   this.Level = 1;    
   this.HRoll = params.HRoll || 0;
   this.DRoll = params.DRoll || 0;  
@@ -71,7 +72,7 @@ Character.prototype.MaxHP = function() {
 Character.prototype.StatMod = function(stat) {        
   val = 0;
   var eq = this.Equipment;
-  
+
   //Account for eq mods
   for(var e in eq) {
    if(eq[e]) {

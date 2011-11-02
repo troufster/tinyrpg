@@ -14,9 +14,7 @@
  var player = new Character({ STR: 1, DEX: 1, MIND: 1, Name : 'Player', pos : new Vector(1,1), id : 123123123}); 
  
  
- console.log(monster1.Json());
- console.log(player.Json());
- return;
+ 
  
  
  player.Target = monster1;
@@ -25,7 +23,7 @@
  
  
  var Sword = new Item({ DEX : 1, Name : 'Sword of Quickness', DRoll : 5, Type : 'Weapon'});
- var Armor = new Item({ STR : -2, DEX : 10, Name : 'Cloak of Pew', Type : 'Armor'});
+ var Armor = new Item({ AC : 5, Name : 'Cloak of Pew', Type : 'Armor'});
   
  
  monster1.AI = new FSM(AI.Generic, 'Idle');
@@ -44,8 +42,10 @@
  
  player.Level = 1;
  //player.Equip(Sword);
- //player.Equip(Armor);
+ player.Equip(Armor);
  player.Reset();
+ 
+ 
  
 
  //console.log(player);
