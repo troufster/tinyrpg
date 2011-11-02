@@ -59,11 +59,13 @@ Character.prototype.Update = function() {
 
 
 Character.prototype.MaxAC = function() {  
-  return Math.floor(10 + ((this.DEX + this.StatMod('DEX'))  - 10)/4 );      
+  return ~~(10 + this.StatMod('AC'));  
 }
 
 Character.prototype.MaxHP = function() {
-  return Math.floor((12 + ((this.STR + this.StatMod('STR')) * 1) + (this.Level * 1)));
+  //return Math.floor((12 + ((this.STR + this.StatMod('STR')) * 1) + (this.Level * 1)));
+  var base = (6 + this.Level);
+  return ~~((base * base)/10);
 }
 
 Character.prototype.StatMod = function(stat) {        
@@ -126,7 +128,7 @@ Character.prototype.Death = function(killer) {
 
 Character.prototype.Json = function() {    
   var char = { Equipment : {}};
-  var nosend = ['AC', 'AI', 'DEX', 'MIND', 'DRoll', 'HRoll', 'STR'];
+  var nosend = [];//['AC', 'AI', 'DEX', 'MIND', 'DRoll', 'HRoll', 'STR'];
   
   for(var prop in this) {
     var type = typeof this[prop];

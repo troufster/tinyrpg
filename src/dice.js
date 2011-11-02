@@ -1,5 +1,5 @@
 function _rand(n) { 
-  return Math.floor((Math.random() * n) + 1);
+  return ~~((Math.random() * n) + 1);
 } 
 
 var Dice =  {

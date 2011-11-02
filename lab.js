@@ -13,9 +13,15 @@
  var monster3 = new Character({ STR: 1, DEX: 1, MIND: 1, Name : 'Monster3'});
  var player = new Character({ STR: 1, DEX: 1, MIND: 1, Name : 'Player', pos : new Vector(1,1), id : 123123123}); 
  
+ 
+ console.log(monster1.Json());
+ console.log(player.Json());
+ return;
+ 
+ 
  player.Target = monster1;
  
- //console.log(player.Json());
+ 
  
  
  var Sword = new Item({ DEX : 1, Name : 'Sword of Quickness', DRoll : 5, Type : 'Weapon'});
